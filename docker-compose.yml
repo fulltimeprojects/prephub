@@ -1,0 +1,17 @@
+# Optional: local MySQL 8.4 for development.
+#   docker compose up -d
+# then use DATABASE_URL="mysql://root:password@127.0.0.1:3306/prephub"
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: prephub
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

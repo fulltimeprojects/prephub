@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* PrepHub — study-desk palette: cool paper, navy ink, petrol-teal actions, one highlighter for "today". */
+@theme {
+  --color-paper: #edf0f4;
+  --color-sheet: #ffffff;
+  --color-ink: #17213a;
+  --color-ink-soft: #4a5570;
+  --color-muted: #6b7489;
+  --color-rule: #d6dbe4;
+  --color-rule-strong: #b9c1cf;
+  --color-petrol: #0e5e6f;
+  --color-petrol-dark: #0a4855;
+  --color-petrol-tint: #e3eff1;
+  --color-mark: #ffe45c;
+  --color-mark-soft: #fff4b8;
+  --color-confident: #23764f;
+  --color-confident-tint: #e2f1e9;
+  --color-revising: #a86a12;
+  --color-revising-tint: #fbefd9;
+  --color-idle: #8a93a6;
+  --color-danger: #b42318;
+
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-literata), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-mark);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-petrol);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  a {
+    color: inherit;
+  }
+  summary {
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Long-form reading text: answers and notes. Serif needs a little more leading. */
+  .prose-study {
+    font-family: var(--font-serif);
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--color-ink);
+    max-width: 74ch;
+  }
+  .prose-study p + p,
+  .prose-study p + ul,
+  .prose-study ul + p,
+  .prose-study pre + p,
+  .prose-study p + pre,
+  .prose-study ul + pre,
+  .prose-study pre + ul {
+    margin-top: 0.6em;
+  }
+  .prose-study li {
+    position: relative;
+    padding-left: 1.1em;
+  }
+  .prose-study li + li {
+    margin-top: 0.35em;
+  }
+  .prose-study li::before {
+    content: "";
+    position: absolute;
+    left: 0.15em;
+    top: 0.72em;
+    width: 0.38em;
+    height: 0.38em;
+    border-radius: 50%;
+    background: var(--color-petrol);
+  }
+  .prose-study li.sub {
+    margin-left: 1.2em;
+  }
+  .prose-study li.sub::before {
+    background: transparent;
+    border: 1.5px solid var(--color-petrol);
+  }
+  .prose-study li.step::before {
+    display: none;
+  }
+  .prose-study li.step {
+    padding-left: 0;
+  }
+  .prose-study code,
+  .code-block {
+    font-family: var(--font-mono);
+  }
+  .code-block {
+    font-size: 13px;
+    line-height: 1.6;
+    background: #f5f7fa;
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-petrol);
+    border-radius: 4px;
+    padding: 0.75rem 0.9rem;
+    overflow-x: auto;
+    white-space: pre;
+    color: #1d2840;
+  }
+
+  /* The one bold element: a highlighter stroke for "today". */
+  .highlight {
+    background: linear-gradient(transparent 12%, var(--color-mark) 12%, var(--color-mark) 88%, transparent 88%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 0.2em;
+  }
+
+  .link {
+    color: var(--color-petrol);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .link:hover {
+    color: var(--color-petrol-dark);
+    text-decoration-thickness: 2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0.5rem 0.95rem;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+  .btn-primary {
+    background: var(--color-petrol);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--color-petrol-dark);
+  }
+  .btn-quiet {
+    border: 1px solid var(--color-rule-strong);
+    background: var(--color-sheet);
+    color: var(--color-ink);
+  }
+  .btn-quiet:hover {
+    border-color: var(--color-petrol);
+  }
+
+  .field {
+    width: 100%;
+    border: 1px solid var(--color-rule-strong);
+    background: var(--color-sheet);
+    border-radius: 6px;
+    padding: 0.55rem 0.7rem;
+    font-size: 15px;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-petrol);
+    box-shadow: 0 0 0 3px var(--color-petrol-tint);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
