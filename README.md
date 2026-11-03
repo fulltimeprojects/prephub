@@ -66,7 +66,7 @@ NODE_ENV=production npm start   # serve behind HTTPS (Nginx, a load balancer, or
 
 Vercel runs the app; the database must be a hosted MySQL that Vercel can reach (your local MySQL won't work).
 
-1. **Create a hosted MySQL 8 database**, e.g. TiDB Cloud, Aiven for MySQL, Railway, PlanetScale or AWS RDS. Pick a region close to Mumbai (`ap-south-1`) — `vercel.json` runs the app in Vercel's Mumbai region (`bom1`); change it if your database is elsewhere. Copy its connection details.
+1. **Create a hosted MySQL 8 database**, e.g. TiDB Cloud, Aiven for MySQL, Railway, PlanetScale or AWS RDS. Pick Singapore (`ap-southeast-1`) — `vercel.json` runs the app in Vercel's Singapore region (`sin1`) so it sits next to the database; change it if your database is elsewhere. Copy its connection details.
 2. **Load the content into it from your computer:**
    ```bash
    DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/prephub" npm run db:setup
