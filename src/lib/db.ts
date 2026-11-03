@@ -11,7 +11,15 @@ const LOCAL_HOSTS = ["localhost", "127.0.0.1", "::1", "[::1]"];
  * Keep in sync with scripts/db-setup.mjs.
  */
 function connectionOptions(raw: string): PoolOptions {
-  const url = new URL(raw);
+  let url: URL;
+  try {
+    url = new URL(raw.trim().replace(/^(['"])(.*)\1$/, "$2")); // tolerate surrounding quotes pasted into a dashboard
+  } catch {
+    // Don't echo the value: it contains the password.
+    throw new Error(
+      'DATABASE_URL is not a valid URL. Set it to just the URL, e.g. mysql://USER:PASSWORD@HOST:PORT/prephub — no "DATABASE_URL=", quotes or other text.',
+    );
+  }
   const sslSetting = process.env.DATABASE_SSL?.trim().toLowerCase();
   const useSsl = sslSetting ? sslSetting === "true" : !LOCAL_HOSTS.includes(url.hostname);
   const ca = process.env.DATABASE_CA_CERT?.replace(/\\n/g, "\n");
