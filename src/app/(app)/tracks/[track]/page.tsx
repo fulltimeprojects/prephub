@@ -43,16 +43,18 @@ export default async function TrackPage({ params }: Props) {
       {track.highlights && (
         <section aria-labelledby="why-heading" className="max-w-[72ch]">
           <h2 id="why-heading" className="text-[20px] font-semibold">
-            Why this matters with 10 years of experience
+            {track.slug === "ai" ? "Why this matters with 10 years of experience" : "What senior interviews look for"}
           </h2>
           <ul className="prose-study mt-3">
             {track.highlights.split("\n").map((line) => (
               <li key={line}>{line}</li>
             ))}
           </ul>
-          <Link href="/tracks/ai/skills" className="link mt-3 inline-block">
-            See how AI strengthens each of your skills
-          </Link>
+          {track.slug === "ai" && (
+            <Link href="/tracks/ai/skills" className="link mt-3 inline-block">
+              See how AI strengthens each of your skills
+            </Link>
+          )}
         </section>
       )}
 

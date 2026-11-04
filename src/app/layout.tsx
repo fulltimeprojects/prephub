@@ -8,7 +8,7 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 
 export const metadata: Metadata = {
   title: { default: "PrepHub", template: "%s | PrepHub" },
-  description: "Day-by-day interview preparation for senior full-stack and AI engineering roles.",
+  description: "Day-by-day interview preparation for senior full-stack, AI engineering and design roles.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

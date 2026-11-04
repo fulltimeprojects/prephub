@@ -29,7 +29,8 @@ export default async function HomePage() {
             Study for senior interviews, one day at a time.
           </h1>
           <p className="mt-6 max-w-[54ch] text-[18px] leading-relaxed text-ink-soft">
-            Two day-by-day plans — full-stack (Laravel, Node.js, React, Next.js, JavaScript, system design) and AI engineering — with{" "}
+            Three day-by-day plans — full-stack (Laravel, Node.js, React, Next.js, JavaScript, system design), AI engineering and senior
+            design (Adobe, Figma, print, branding, UI/UX) — with{" "}
             {counts.questions} interview questions, {counts.notes} study notes and model answers. Mark what you know, revise what you
             don’t, and see your progress every morning.
           </p>

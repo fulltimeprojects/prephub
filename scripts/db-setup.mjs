@@ -1,4 +1,4 @@
-// Creates the database (if missing), applies db/schema.sql and loads db/seed.sql.
+// Creates the database (if missing), applies db/schema.sql and loads db/seed.sql and db/seed-design.sql.
 // Safe to re-run: tables use IF NOT EXISTS and content rows are upserted, so user progress is kept.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -57,7 +57,7 @@ try {
     if (!["ER_DBACCESS_DENIED_ERROR", "ER_ACCESS_DENIED_ERROR", "ER_SPECIFIC_ACCESS_DENIED_ERROR"].includes(error.code)) throw error;
   }
   await connection.query(`USE \`${database}\``);
-  for (const file of ["db/schema.sql", "db/seed.sql"]) {
+  for (const file of ["db/schema.sql", "db/seed.sql", "db/seed-design.sql"]) {
     const sql = await readFile(path.join(root, file), "utf8");
     await connection.query(sql);
     console.log(`Applied ${file}`);

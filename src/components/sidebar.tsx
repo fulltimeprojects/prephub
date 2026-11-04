@@ -2,6 +2,7 @@ import Link from "next/link";
 import { logout } from "@/app/actions/auth";
 import type { SectionStat, Track, User } from "@/lib/types";
 import { MobileMenu } from "./mobile-menu";
+import { NavGroup } from "./nav-group";
 import { NavLink } from "./nav-link";
 
 export interface SidebarTrack {
@@ -9,33 +10,58 @@ export interface SidebarTrack {
   sections: SectionStat[];
 }
 
+const LABEL = "px-2.5 text-[11px] font-semibold tracking-wider text-muted uppercase";
+
 function SidebarNav({ tracks }: { tracks: SidebarTrack[] }) {
   return (
-    <nav aria-label="Main" className="flex flex-col gap-6">
+    <nav aria-label="Main" className="flex flex-col gap-5">
       <div className="flex flex-col gap-0.5">
         <NavLink href="/dashboard" exact>
           Today
         </NavLink>
         <NavLink href="/search">Search</NavLink>
       </div>
-      {tracks.map(({ track, sections }) => (
-        <div key={track.slug} className="flex flex-col gap-0.5">
-          <Link href={`/tracks/${track.slug}`} className="mb-1 px-2.5 text-[13px] font-semibold text-muted hover:text-ink">
-            {track.title}
-          </Link>
-          <NavLink href={`/tracks/${track.slug}/plan`}>Day-by-day plan</NavLink>
-          <NavLink href={`/tracks/${track.slug}/notes`}>Study notes</NavLink>
-          {track.slug === "ai" && <NavLink href="/tracks/ai/skills">AI and your skills</NavLink>}
-          {sections.map((s) => (
-            <NavLink key={s.slug} href={`/tracks/${track.slug}/questions/${s.slug}`}>
-              <span className="truncate">{s.title}</span>
-              <span className="shrink-0 font-mono text-[12px] text-muted tabular-nums">
-                {s.confident}/{s.total}
-              </span>
-            </NavLink>
-          ))}
-        </div>
-      ))}
+      <div className="flex flex-col gap-1">
+        <p className={LABEL}>Study plans</p>
+        {tracks.map(({ track, sections }) => {
+          const base = `/tracks/${track.slug}`;
+          return (
+            <NavGroup
+              key={track.slug}
+              base={base}
+              title={track.title}
+              confident={sections.reduce((n, s) => n + s.confident, 0)}
+              total={sections.reduce((n, s) => n + s.total, 0)}
+            >
+              <div className="flex flex-col gap-0.5">
+                <NavLink href={base} exact>
+                  Overview
+                </NavLink>
+                <NavLink href={`${base}/plan`}>Day-by-day plan</NavLink>
+                <NavLink href={`${base}/notes`}>Study notes</NavLink>
+                {track.slug === "ai" && <NavLink href="/tracks/ai/skills">AI and your skills</NavLink>}
+              </div>
+              <p className={`${LABEL} mt-3 mb-1`}>Interview questions</p>
+              <div className="flex flex-col gap-0.5">
+                {sections.map((s) => {
+                  const done = s.total > 0 && s.confident === s.total;
+                  return (
+                    <NavLink key={s.slug} href={`${base}/questions/${s.slug}`}>
+                      <span className="min-w-0 leading-snug">{s.title}</span>
+                      <span
+                        className={`shrink-0 font-mono text-[12px] tabular-nums ${done ? "font-semibold text-confident" : "text-muted"}`}
+                        title={`${s.confident} of ${s.total} confident`}
+                      >
+                        {done ? "✓" : `${s.confident}/${s.total}`}
+                      </span>
+                    </NavLink>
+                  );
+                })}
+              </div>
+            </NavGroup>
+          );
+        })}
+      </div>
     </nav>
   );
 }

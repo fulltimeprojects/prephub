@@ -2,12 +2,13 @@
 
 A learning platform for senior interview preparation, built with **Next.js 16 (App Router)** for both frontend and backend, and **MySQL** for content and progress.
 
-It contains everything from the two study workbooks:
+It contains everything from the two study workbooks, plus a senior designer plan:
 
 | Plan | Days | Study notes | Interview questions |
 |---|---|---|---|
 | Full-stack interview prep (JavaScript, Node.js, React, Next.js, Laravel, system design, senior/behavioural) | 56 | 82 | 193 |
 | AI engineering (LLMs, RAG, agents, MCP, evals, AI security, AI in your stack) | 28 | 22 | 39 |
+| Senior designer (design fundamentals, Adobe & Figma, print & books, branding & banners, web & UI/UX, leadership) | 28 | 31 | 64 |
 
 ## What you can do
 
@@ -113,6 +114,7 @@ src/
 db/
   schema.sql                         tables
   seed.sql                           all content (generated from the workbooks)
+  seed-design.sql                    the senior designer plan
 scripts/db-setup.mjs                 applies schema + seed
 ```
 
@@ -132,7 +134,7 @@ scripts/db-setup.mjs                 applies schema + seed
 
 ## Updating the content
 
-All study content lives in `db/seed.sql`. Edit it (or regenerate it) and run `npm run db:setup` again — rows are matched by id, so user progress stays attached.
+All study content lives in `db/seed.sql` and `db/seed-design.sql`. Edit it (or regenerate it) and run `npm run db:setup` again — rows are matched by id, so user progress stays attached.
 
 ## Testing status
 

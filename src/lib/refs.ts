@@ -9,6 +9,12 @@ const QUESTION_PREFIX: Record<string, { track: string; section: string }> = {
   SD: { track: "fullstack", section: "system-design" },
   SR: { track: "fullstack", section: "senior" },
   AI: { track: "ai", section: "questions" },
+  DF: { track: "design", section: "fundamentals" },
+  AD: { track: "design", section: "tools" },
+  PR: { track: "design", section: "print" },
+  BR: { track: "design", section: "branding" },
+  UX: { track: "design", section: "web" },
+  DL: { track: "design", section: "leadership" },
 };
 
 export type RefPart = { text: string; href?: string };
